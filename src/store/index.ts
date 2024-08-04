@@ -72,14 +72,14 @@ export default createStore({
     },
     async deletePost({ commit }, postId) {
       try {
-        await axios.delete(`/api/posts/${postId}`);
+        // await axios.delete(`/api/posts/${postId}`);
         commit(
           'SET_POSTS',
           this.state.posts.filter((post: Post) => post.id !== postId)
         );
         console.log('Post has been deleted successfully!');
       } catch (error) {
-        console.error("Error deliting the post!");
+        console.error('Error deliting the post!');
       }
     },
   },
