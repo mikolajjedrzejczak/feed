@@ -72,7 +72,7 @@ export default createStore({
     },
     async deletePost({ commit }, postId) {
       try {
-        // await axios.delete(`/api/posts/${postId}`);
+        const res = await axios.delete(`/api/posts/${postId}`);
         commit(
           'SET_POSTS',
           this.state.posts.filter((post: Post) => post.id !== postId)
