@@ -7,17 +7,20 @@ const store = useStore();
 const currentPage = computed(() => store.getters.currentPage);
 const totalPages = computed(() => store.getters.totalPages);
 
-const changePage = (page: any) => store.dispatch('changePage', page);
+const handleChangePage = (page: any) => {
+    store.dispatch('changePage', page)
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
 </script>
 
 <template>
   <div class="pagination">
-    <button @click="changePage(currentPage - 1)" :disabled="currentPage === 1">
+    <button @click="handleChangePage(currentPage - 1)" :disabled="currentPage === 1">
       <i class="pi pi-arrow-circle-left"></i>
     </button>
     <span>Page {{ currentPage }} of {{ totalPages }}</span>
     <button
-      @click="changePage(currentPage + 1)"
+      @click="handleChangePage(currentPage + 1)"
       :disabled="currentPage === totalPages"
     >
       <i class="pi pi-arrow-circle-right"></i>

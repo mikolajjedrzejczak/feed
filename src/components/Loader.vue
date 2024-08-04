@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
+import { VueSpinner } from 'vue3-spinners';
 </script>
 
 <template>
   <div class="loader">
-    <PulseLoader color="#393939" size="15px" margin="2px" />
+    <VueSpinner color="#393939" size="90"/>
   </div>
 </template>
 

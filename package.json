@@ -14,7 +14,7 @@
     "scss": "^0.2.4",
     "vue": "^3.4.31",
     "vue-router": "^4.4.2",
-    "vue-spinner": "^1.0.4",
+    "vue3-spinners": "^1.2.2",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
