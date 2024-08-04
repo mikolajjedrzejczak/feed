@@ -42,7 +42,9 @@ const handleActiveMenu = () => {
 
 <style lang="scss">
 .navbar {
-  position: relative;
+  position: sticky;
+  top: 0;
+  left: 0;
   background-color: $primary;
   color: $font;
   width: 100%;
