@@ -1,9 +1,17 @@
 import { createStore } from 'vuex';
 import axios from 'axios';
 
+interface Post {
+  id: number;
+  author: string;
+  title: string;
+  body: string;
+  userId: number;
+}
+
 export default createStore({
   state: {
-    posts: [],
+    posts: [] as Post[],
     currentPage: 1,
     perPage: 10,
     totalPages: 0,
@@ -38,7 +46,7 @@ export default createStore({
         );
 
         const posts = await Promise.all(
-          response.data.map(async (post: any) => {
+          response.data.map(async (post: Post) => {
             const userResponse = await axios.get(
               `https://jsonplaceholder.typicode.com/users/${post.userId}`
             );
@@ -61,6 +69,18 @@ export default createStore({
     changePage({ commit, dispatch }, page) {
       commit('SET_CURRENT_PAGE', page);
       dispatch('fetchPosts');
+    },
+    async deletePost({ commit }, postId) {
+      try {
+        await axios.delete(`/api/posts/${postId}`);
+        commit(
+          'SET_POSTS',
+          this.state.posts.filter((post: Post) => post.id !== postId)
+        );
+        console.log('Post has been deleted successfully!');
+      } catch (error) {
+        console.error("Error deliting the post!");
+      }
     },
   },
   getters: {

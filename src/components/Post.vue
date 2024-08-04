@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { useStore } from 'vuex';
 
 interface Post {
   id: number;
   author: string;
   title: string;
   body: string;
-  avatar?: string;
 }
 
 const props = defineProps({
@@ -23,6 +23,8 @@ const props = defineProps({
   },
 });
 
+const store = useStore();
+
 const showFullContent = ref(false);
 
 const toggleFullDescription = () => {
@@ -36,6 +38,10 @@ const truncatedContent = computed(() => {
   }
   return description;
 });
+
+const handleDeletePost = (postId: number) => {
+  store.dispatch('deletePost', postId);
+};
 </script>
 
 <template>
@@ -56,7 +62,9 @@ const truncatedContent = computed(() => {
       </button>
 
       <div class="post-option">
-        <button class="del-btn">Delete</button>
+        <button @click="handleDeletePost(props.post.id)" class="del-btn">
+          Delete
+        </button>
       </div>
     </div>
   </div>
@@ -71,7 +79,6 @@ const truncatedContent = computed(() => {
   flex-direction: column;
   gap: 1rem;
   color: $font;
-
 
   .post-header {
     display: flex;

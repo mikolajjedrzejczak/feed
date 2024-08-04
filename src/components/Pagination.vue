@@ -8,10 +8,10 @@ const currentPage = computed(() => store.getters.currentPage);
 const totalPages = computed(() => store.getters.totalPages);
 
 const handleChangePage = (page: any) => {
-    store.dispatch('changePage', page)
+  store.dispatch('changePage', page)
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
-</script>
+</script> 
 
 <template>
   <div class="pagination">
