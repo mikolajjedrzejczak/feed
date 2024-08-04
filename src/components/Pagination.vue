@@ -7,7 +7,7 @@ const store = useStore();
 const currentPage = computed(() => store.getters.currentPage);
 const totalPages = computed(() => store.getters.totalPages);
 
-const handleChangePage = (page: any) => {
+const handleChangePage = (page: number) => {
   store.dispatch('changePage', page)
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };

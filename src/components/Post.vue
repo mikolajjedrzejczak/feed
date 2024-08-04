@@ -40,7 +40,12 @@ const truncatedContent = computed(() => {
 });
 
 const handleDeletePost = (postId: number) => {
-  store.dispatch('deletePost', postId);
+  const confirm = window.confirm('Are you sure you want to delete that post?');
+  if (confirm) {
+    store.dispatch('deletePost', postId);
+  }
+
+  return;
 };
 </script>
 
@@ -79,6 +84,7 @@ const handleDeletePost = (postId: number) => {
   flex-direction: column;
   gap: 1rem;
   color: $font;
+  max-width: 700px;
 
   .post-header {
     display: flex;

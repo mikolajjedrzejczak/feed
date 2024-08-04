@@ -26,7 +26,7 @@ const handleActiveMenu = () => {
         @keydown="handleSearch"
         v-model="search"
         type="text"
-        placeholder="search user..."
+        placeholder="search... (not available)"
       />
     </div>
     <div :class="`links ${isActiveMenu && 'active'}`">
