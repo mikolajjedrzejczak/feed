@@ -1,18 +1,19 @@
 <script setup lang="ts">
-import PostList from '../components/PostList.vue';
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
 </script>
 
 <template>
-  <div class="wrapper">
-    <PostList />
+  <div class="loader">
+    <PulseLoader color="#393939" size="15px" margin="2px" />
   </div>
 </template>
 
 <style lang="scss">
-.wrapper {
+.loader {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
   background-color: $primary;
 }
 </style>

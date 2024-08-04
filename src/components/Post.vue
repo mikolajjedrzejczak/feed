@@ -1,19 +1,63 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { computed, ref } from 'vue';
+
+interface Post {
+  id: number;
+  author: string;
+  title: string;
+  body: string;
+  avatar?: string;
+}
+
+const props = defineProps({
+  post: {
+    type: Object as () => Post,
+    required: false,
+    default: () => ({
+      id: 0,
+      author: 'Test Author',
+      title: 'Default Title',
+      body: 'Default Body',
+      avatar: 'asdad',
+    }),
+  },
+});
+
+const showFullContent = ref(false);
+
+const toggleFullDescription = () => {
+  showFullContent.value = !showFullContent.value;
+};
+
+const truncatedContent = computed(() => {
+  let description = props.post.body;
+  if (!showFullContent.value) {
+    description = description.substring(0, 90) + '...';
+  }
+  return description;
+});
+</script>
 
 <template>
   <div class="post">
     <div class="post-header">
-      <div class="author">
-        <img src="" alt="avatar" />
-        <span>Author</span>
+      <div class="post-top">
+        <span>{{ props.post.author }}</span>
+        <h4 class="post-title">{{ props.post.title }}</h4>
       </div>
-      <div class="id">post id</div>
+      <div class="post-id">#{{ props.post.id }}</div>
     </div>
     <div class="post-content">
-      <p>post content</p>
-    </div>
-    <div class="post-option">
-      <button class="del-btn">Delete</button>
+      <div>
+        {{ truncatedContent }}
+      </div>
+      <button class="show-more-btn" @click="toggleFullDescription">
+        {{ showFullContent ? 'Less' : 'More' }}
+      </button>
+
+      <div class="post-option">
+        <button class="del-btn">Delete</button>
+      </div>
     </div>
   </div>
 </template>
@@ -27,30 +71,28 @@
   flex-direction: column;
   gap: 1rem;
   color: $font;
-  min-width: 50%;
+
 
   .post-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    .author {
+    .post-top {
       display: flex;
       align-items: center;
+      font-size: 0.8rem;
+      font-weight: bold;
 
-      img {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        margin-right: 0.5rem;
-      }
-
-      span {
-        font-weight: bold;
+      .post-title {
+        font-size: 0.7rem;
+        margin-left: 0.5rem;
+        padding-left: 1rem;
+        border-left: 2px solid $primary;
       }
     }
 
-    .id {
+    .post-id {
       font-size: 0.8rem;
     }
   }
@@ -58,6 +100,15 @@
   .post-content {
     p {
       font-size: 1rem;
+    }
+
+    .show-more-btn {
+      background-color: $primary;
+      color: $font;
+      border: none;
+      border-radius: 5px;
+      padding: 0.1rem;
+      cursor: pointer;
     }
   }
 
